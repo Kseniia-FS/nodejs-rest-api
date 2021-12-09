@@ -18,6 +18,7 @@ class Auth {
         token: user.token,
         email: user.email,
         subscription: user.subscription,
+        avatarURL: user.avatarURL,
       },
     });
   }

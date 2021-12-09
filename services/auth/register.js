@@ -1,5 +1,6 @@
 const HTTP409Error = require("../../helpers/errorHandlers/HTTP409Error");
 const hash = require("../../helpers/hashing/hashPassword");
+const gravatar = require("gravatar");
 const User = require("../../models/users");
 
 const register = async (email, password) => {
@@ -9,7 +10,13 @@ const register = async (email, password) => {
     throw new HTTP409Error("Email in use.");
   }
 
-  const newUser = await User.create({ email, password: hash(password) });
+  const avatarURL = gravatar.url(email);
+
+  const newUser = await User.create({
+    email,
+    password: hash(password),
+    avatarURL,
+  });
   return newUser;
 };
 

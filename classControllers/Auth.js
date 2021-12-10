@@ -5,7 +5,7 @@ class Auth {
     const { email, password } = req.body;
     const newUser = await register(email, password);
 
-    return res.json({ status: "succes", code: 201, data: newUser });
+    return res.status(201).json({ status: "succes", code: 201, data: newUser });
   }
 
   async signin(req, res) {

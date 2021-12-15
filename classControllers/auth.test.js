@@ -16,12 +16,12 @@ describe("Authentification test", () => {
 
   app.post("/users/signup", auth.signup);
 
-  beforeAll(() => mongoose.connect(DB_HOST).then(() => app.listen(3000)));
+  beforeAll(() => mongoose.connect(DB_HOST).then(() => app.listen(5000)));
 
   test("Signup test", async () => {
     const response = await request(app)
       .post("/users/signup")
-      .send({ email: "email5@gmail.com", password: "12345678" });
+      .send({ email: "email6@gmail.com", password: "12345678" });
 
     const { email, subscription } = response.body.data;
     expect(response.status).toBe(201);

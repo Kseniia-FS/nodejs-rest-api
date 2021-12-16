@@ -9,6 +9,8 @@ const router = express.Router();
 const users = new Users();
 
 router.get("/current", tokenValidation, ctrlWrapper(users.getUser));
+router.get("/verify/:verificationToken", ctrlWrapper(users.verification));
+router.post("/verify", ctrlWrapper(users.verificationRepeat));
 router.patch("/", tokenValidation, ctrlWrapper(users.changeSubscription));
 router.patch(
   "/avatar",

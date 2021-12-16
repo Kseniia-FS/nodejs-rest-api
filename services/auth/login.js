@@ -4,10 +4,12 @@ const { HTTP401Error, HTTP400Error } = require("../../helpers/errorHandlers");
 const User = require("../../models/users");
 
 const login = async (email, password) => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email, verify: true });
 
-  if (!user) {
-    throw new HTTP401Error("You are not authorized yet, please signup");
+  if (!user || !user.verify) {
+    throw new HTTP401Error(
+      "You are not authorized yet, please signup or verify your email"
+    );
   }
 
   const isValidPassword = bcrypt.compareSync(password, user.password);

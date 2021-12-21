@@ -1,11 +1,26 @@
-const { login, register, logout } = require("../services/auth");
+const { login, register, logout, sendEmail } = require("../services/auth");
 
 class Auth {
   async signup(req, res) {
     const { email, password } = req.body;
     const newUser = await register(email, password);
+    const message = {
+      to: email,
+      subject: "Please verify your email",
+      html: `Please <a href="http://localhost:5050/api/users/verify/${newUser.verificationToken}">clik here</a> to verify your email`,
+    };
 
-    return res.status(201).json({ status: "succes", code: 201, data: newUser });
+    await sendEmail(message);
+
+    return res.status(201).json({
+      status: "success",
+      code: 201,
+      data: {
+        email: newUser.email,
+        subscription: newUser.subscription,
+        avatarURL: newUser.avatarURL,
+      },
+    });
   }
 
   async signin(req, res) {

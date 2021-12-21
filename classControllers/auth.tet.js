@@ -5,7 +5,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const { DB_HOST } = process.env;
 
-const Auth = require("../classControllers/Auth");
+const Auth = require("./Auth");
 const app = express();
 
 const auth = new Auth();

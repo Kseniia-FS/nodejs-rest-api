@@ -1,6 +1,7 @@
-const HTTP409Error = require("../../helpers/errorHandlers/HTTP409Error");
-const hash = require("../../helpers/hashing/hashPassword");
 const gravatar = require("gravatar");
+const { v4: uuidv4 } = require("uuid");
+const hash = require("../../helpers/hashing/hashPassword");
+const HTTP409Error = require("../../helpers/errorHandlers/HTTP409Error");
 const User = require("../../models/users");
 
 const register = async (email, password) => {
@@ -16,6 +17,7 @@ const register = async (email, password) => {
     email,
     password: hash(password),
     avatarURL,
+    verificationToken: uuidv4(),
   });
   return newUser;
 };
